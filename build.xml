@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="UT coverage with Ant and JaCoCo running tests" default="all" basedir="." xmlns:sonar="antlib:org.sonar.ant" xmlns:jacoco="antlib:org.jacoco.ant">
+<project name="UT coverage with Ant and JaCoCo running tests" default="all" basedir="." xmlns:jacoco="antlib:org.jacoco.ant">
 
     <!-- ========= Define the main properties of this project ========= -->
     <property name="src.dir" value="src" />
@@ -10,24 +10,7 @@
     <property name="reports.dir" value="${build.dir}/reports" />
     <property name="reports.junit.xml.dir" value="${reports.dir}/junit" />
 
-    <!-- Define the Sonar properties -->
-
-    <property name="sonar.jdbc.url" value="jdbc:mysql://localhost:3306/sonar332?useUnicode=true&amp;characterEncoding=utf8" />
-        <property name="sonar.jdbc.driverClassName" value="com.mysql.jdbc.Driver" />
-
-        <!-- the username and password of your database -->
-        <property name="sonar.jdbc.username" value="root" />
-        <property name="sonar.jdbc.password" value="password" />
-
-    <property name="sonar.projectKey" value="org.codehaus.sonar:example-ut-ant-jacoco-runTests" />
-    <property name="sonar.projectName" value="UT coverage with Ant and JaCoCo running tests" />
-    <property name="sonar.projectVersion" value="1.0" />
-    <property name="sonar.language" value="java" />
-    <property name="sonar.sources" value="${src.dir}" />
-    <property name="sonar.tests" value="${test.dir}" />
-    <property name="sonar.binaries" value="${classes.dir}" />
-    <property name="sonar.sourceEncoding" value="UTF-8" />
-    <property name="sonar.surefire.reportsPath" value="${reports.junit.xml.dir}" />
+    
 
     <!-- The following properties are required to use JaCoCo: -->
     <property name="sonar.dynamicAnalysis" value="reuseReports" />
@@ -41,7 +24,6 @@
         </taskdef>
 
     <target name="clean">
-        <delete dir=".sonar" />
         <delete dir="${build.dir}" />
         <delete dir="${reports.dir}" />
     </target>
@@ -119,18 +101,9 @@
 
     </target>
 
-    <!-- ========= Define Sonar target ========= -->
-    <target name="sonar" depends="compile">
-        <taskdef uri="antlib:org.sonar.ant" resource="org/sonar/ant/antlib.xml">
-            <!-- Update the following line, or put the "sonar-ant-task-*.jar" file in your "$HOME/.ant/lib" folder -->
-            <classpath path="./lib/sonar-ant-task-2.2.jar" />
-	</taskdef>
 
-        <!-- Execute Sonar -->
-         <sonar:sonar key="${sonar.projectKey}" version="0.1-SNAPSHOT"  xmlns:sonar="antlib:org.sonar.ant"/>
-    </target>
 
     <!-- ========= The main target "all" ========= -->
-    <target name="all" depends="clean,compile,test,sonar" />
+    <target name="all" depends="clean,compile,test" />
 
 </project>
